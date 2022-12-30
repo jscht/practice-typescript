@@ -54,7 +54,8 @@ class Blockchain {
         this.blocks.push(newBlock)
     }
     public getBlock() {
-        return this.blocks
+        // 원본 배열이 아닌 새로운 배열을 반환하여 악의적인 블럭 추가를 막는다.
+        return new Array(...this.blocks)
     }
 }
 
@@ -64,8 +65,9 @@ blockchain.addBlock("first data")
 blockchain.addBlock("second data")
 blockchain.addBlock("third data")
 
-// 아래 코드느 보안상 매우 큰 문제가 있는데
-// 누구든지 블록체인 생성 절차를 거치지 않고 새로운 블럭을 추가할 수 있다는 것이다. 
+// 아래 코드는 보안상 매우 큰 문제가 있는데
+// 블록체인 생성 절차를 거치지 않고 누구든지 새로운 블럭을 추가할 수 있다는 것이다. 
 blockchain.getBlock().push(new Block("asdasd", 123123, "hacked"))
 
 console.log(blockchain.getBlock())
+// return new Array(원본 배열)
